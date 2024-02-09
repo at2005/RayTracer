@@ -1,4 +1,6 @@
 
+using namespace std;
+
 class Vec3 {
 	public:
 		float r;
@@ -48,4 +50,18 @@ class Vec3 {
 	float magnitude() {
 		return sqrt(r*r + b*b + g*g);
 	}
+	
+	Vec3 normalise() {
+		float mag = this->magnitude();
+		return *(this) / mag;
+	}
+
+	void print_pixel() {
+		cout << static_cast<int>(r*255.999) << " " << static_cast<int>(g*255.999) << " " << static_cast<int>(b*255.999) << "\n";
+	}
+
+	void print_raw() {
+		cout << r << " " << g << " " << b << "\n";
+	}
+
 };

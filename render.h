@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "objects.h"
 
 Vec3 lerp(Vec3 start, Vec3 end, float alpha) {
 	return (start*(1.0 - alpha)) + (end*alpha);
