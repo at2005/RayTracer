@@ -1,4 +1,8 @@
 #include "vec.h"
+#include <limits>
+
+const double infinity = std::numeric_limits<double>::infinity();
+
 using namespace std;
 
 class Camera {
@@ -40,9 +44,13 @@ class Viewport {
 	public:
 		float height;
 		float  width;
+
 		Vec3 horizontal;
 		Vec3 vertical;
-		
+
+		Vec3 pixel_delta_h;
+		Vec3 pixel_delta_v;
+
 		Viewport(float h, float w, int image_h, int image_w) {
 			height = h;
 			width = w;
@@ -60,10 +68,29 @@ class Viewport {
 		Vec3 compute_pixel_pos(Camera c, int i, int j) {
 			return fetch_origin(c) + (pixel_delta_v * j) + (pixel_delta_h * i);
 		}
-
-		private:
-			Vec3 pixel_delta_h;
-			Vec3 pixel_delta_v;
 	
+};
+
+
+class Interval {
+	public:
+		bool contains(float a) {
+			if(min <= a && a <= max) return true;
+			return false;
+		}
+
+		bool surrounds(float a) {
+			if(min < a && a < max) return true;
+			return false;
+		}
+		
+		bool in_universe(float a) {
+			if(-infinity < a && a < infinity) return true; 
+			return false;
+		}
+
+		float min;
+		float max;
+
 };
 

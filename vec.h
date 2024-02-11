@@ -22,9 +22,21 @@ class Vec3 {
 	Vec3 operator+(const Vec3 other_vec) {
 		return Vec3(this->r + other_vec.r, this->g + other_vec.g, this->b + other_vec.b);
 	}
+	
+	void operator+=(const Vec3 other_vec) {
+		this->r += other_vec.r;
+		this->g += other_vec.g;
+		this->b += other_vec.b;
+	}
 
 	Vec3 operator-(const Vec3 other_vec) {
 		return Vec3(this->r - other_vec.r, this->g - other_vec.g, this->b - other_vec.b);
+	}
+
+	void operator-=(const Vec3 other_vec) {
+		this->r -= other_vec.r;
+		this->g -= other_vec.g;
+		this->b -= other_vec.b;
 	}
 
 	Vec3 operator*(const float scalar) {
@@ -51,6 +63,10 @@ class Vec3 {
 		return sqrt(r*r + b*b + g*g);
 	}
 	
+	float magnitude_squared() {
+		return r*r + b*b + g*g;
+	}
+
 	Vec3 normalise() {
 		float mag = this->magnitude();
 		return *(this) / mag;
