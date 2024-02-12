@@ -42,33 +42,38 @@ class Sphere : public Object {
 		float radius;
 };
 
-/*
+
 class Context {
 	public:
-		Context();
-		float min_t;
-
+		Context() : t_val(infinity), object_hit(nullptr) {}
+		Context(float t, shared_ptr<Object> obj) : t_val(t), object_hit(obj) {}
+		float t_val;
+		shared_ptr<Object> object_hit;
 };
-*/
+
 
 class World {
 	public:
 		World() {
 		}
 		
-		float hit(Ray r) {
+		Context hit(Ray r) {
 			// t_max here represents how "far" our ray can go...
 			// obviously this value will decrease as more objects are hit
-			float t_max = infinity;
+//			float t_max = infinity;
+			Context ctx;
 			for(int i = 0; i < world_list.size(); i++) {
-				auto obj = world_list[i];								
-				float test_t = obj->hit(r, Interval(0, t_max)); 
+				shared_ptr<Object> obj = world_list[i];								
+				float test_t = obj->hit(r, Interval(0.001, ctx.t_val)); 
 				if(test_t != -1.0) {
-					t_max  = test_t;
+					ctx.t_val = test_t;
+					ctx.object_hit = obj;
 				}
 			}			
+			
+			return ctx;
 
-			return t_max == infinity ? -1.0 : t_max;
+			//return t_max == infinity ? -1.0 : t_max;
 		}
 		
 		void add_object(shared_ptr<Object> obj) {

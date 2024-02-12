@@ -71,10 +71,19 @@ class Vec3 {
 		float mag = this->magnitude();
 		return *(this) / mag;
 	}
+	
+	void print_pixel(bool with_gamma) {
+		float red = r;
+		float green = g;
+		float blue = b;
+		if(with_gamma) {
+			red = sqrt(r);
+			blue = sqrt(b);
+			green = sqrt(g);
+		}
 
-	void print_pixel() {
-		cout << static_cast<int>(r*255.999) << " " << static_cast<int>(g*255.999) << " " << static_cast<int>(b*255.999) << "\n";
-	}
+		cout << static_cast<int>(red*255.999) << " " << static_cast<int>(green*255.999) << " " << static_cast<int>(blue*255.999) << "\n";
+	}	
 
 	void print_raw() {
 		cout << r << " " << g << " " << b << "\n";
