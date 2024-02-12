@@ -74,6 +74,9 @@ class Viewport {
 
 class Interval {
 	public:
+		
+		Interval(float mn, float mx) : min(mn), max(mx) {}
+
 		bool contains(float a) {
 			if(min <= a && a <= max) return true;
 			return false;
