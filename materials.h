@@ -31,6 +31,7 @@ class Lambert : public Material {
 		Lambert(Vec3 color) {
 			this->attenuate_color = color;
 		} 
+
 		Ray reflect(Vec3 hit_point, Vec3 normal, Ray incident) override {
 			Vec3 unit_vec = random_unit_vec();
 			if(unit_vec * normal < 0.) {
@@ -46,13 +47,32 @@ class Lambert : public Material {
 
 class Metal: public Material {
 	public:
-		Metal(Vec3 color) {
+		Metal(Vec3 color, float fuzziness) {
 			this->attenuate_color = color;
+			this->fuzziness = fuzziness;
 		}
+
 		Ray reflect(Vec3 hit_point, Vec3 normal, Ray incident) override {
 			Vec3 reflect_dir = incident.dir - ((2*(normal * incident.dir) * normal));
+			 reflect_dir += (fuzziness * random_unit_vec());
 			return Ray(hit_point, reflect_dir);
 		}
+
+		float fuzziness;
+
 };
+
+class Glass : public Material {
+	public:
+		Glass(Vec3 color) {
+			this->attenuate_color = color;
+		}
+
+		Ray reflect(Vec3 hit_point, Vec3 normal, Ray incident) override {
+//			return Ray();			
+		}
+	
+};
+
 
 #endif

@@ -47,7 +47,7 @@ Vec3 aggregate_samples(int num_samples, World world, Viewport viewp, Camera c, i
 }
 
 void render_image(World world, Camera c, Viewport viewp, int width, int height) {
-	int num_samples = 100;
+	int num_samples = 200;
 	cout << "P3\n" << width << " " << height << "\n255\n";
 	for(int j = 0; j < height; j++) {
 		for(int i = 0; i < width; i++) {
