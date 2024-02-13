@@ -1,3 +1,6 @@
+#ifndef UTILS_H
+#define UTILS_H
+
 #include "vec.h"
 #include <limits>
 
@@ -97,3 +100,4 @@ class Interval {
 
 };
 
+#endif

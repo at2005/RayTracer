@@ -1,6 +1,10 @@
+#ifndef OBJECTS_H
+#define OBJECTS_H
+
 #include <vector>
 #include "utils.h"
 #include <memory>
+#include "materials.h"
 using std::shared_ptr;
 using std::make_shared;
 
@@ -8,14 +12,18 @@ class Object {
 	public:
 		virtual float hit(Ray r, Interval t_range) = 0;
 		virtual Vec3 compute_normal(Vec3 hit_point) = 0;
+		shared_ptr<Material> material;
+
 };
 
 class Sphere : public Object {
 	public:
-		Sphere(Vec3 center, float r) {
+		Sphere(Vec3 center, float r, shared_ptr<Material> shader) {
 			this->center = center;
 			this->radius = r;
+			this->material = shader;
 		}	
+		
 
 		float hit(Ray r, Interval t_range) override {
 			Vec3 dir_to_center = r.origin - this->center;
@@ -36,7 +44,7 @@ class Sphere : public Object {
 		Vec3 compute_normal(Vec3 hit_point) override {
 			return (hit_point - this->center).normalise();
 		}
-		
+
 		// variables to describe sphere
 		Vec3 center;
 		float radius;
@@ -90,3 +98,4 @@ class World {
 
 };
 
+#endif
