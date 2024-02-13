@@ -24,7 +24,7 @@ Vec3 ray_color(Ray r, World world, int depth) {
 		Vec3 hit_point = r.pos(t);
 		Vec3 n = hit_ctx.object_hit->compute_normal(hit_point); 
 		shared_ptr<Material> shader = hit_ctx.object_hit->material;
-		return 0.5 * ray_color(shader->reflect(hit_point, n, r), world, depth-1);
+		return shader->attenuate_color ^ ray_color(shader->reflect(hit_point, n, r), world, depth-1);
 	}
 
 	Vec3 ray_normalised_dir = r.dir.normalise();

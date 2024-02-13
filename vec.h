@@ -52,6 +52,11 @@ class Vec3 {
 	float operator*(const Vec3 other_vec) {
 		return this->r * other_vec.r + this->g * other_vec.g + this->b * other_vec.b; 
 	}
+	
+	// hadamard product
+	Vec3 operator^(const Vec3 other_vec) {
+		return Vec3(this->r * other_vec.r, this->g * other_vec.g, this->b * other_vec.b);
+	}
 
 	Vec3 operator/(const float scalar) {
 		return Vec3(this->r / scalar, this->g / scalar, this->b / scalar);
